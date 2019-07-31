@@ -5,21 +5,19 @@
     <title>Add React in One Minute</title>
   </head>
   <body>
-
-    <h2>Add React in One Minute</h2>
-    <p>This page demonstrates using React with no build tooling.</p>
-    <p>React is loaded as a script tag.</p>
-
     <!-- We will put our React component inside this div. -->
-    <div id="like_button_container"></div>
+    <div id="main_page"></div>
 
     <!-- Load React. -->
     <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="react.js"></script>
+    <script src="react-dom.js"></script>
 
     <!-- Load our React component. -->
-    <script src="like_button.js"></script>
+    <script src="price_row.react.js" type="text/babel"></script>
+    <script src="main_page.react.js" type="text/babel"></script>
+    <scropt src="connection.js"></scropt>
+    <script src="babel.js"></script>
 
   </body>
 </html>
