@@ -1,6 +1,40 @@
 import React from 'react';
 import { setUserInCookie } from './UserID';
 
+const p1Style = {
+  fontSize: '25px',
+  textAlign: 'center',
+  color : 'pink',
+  border: '2px solid pink',
+  fontfamily: 'Roboto Slab',
+  margin:"8px"
+
+};
+
+const p2style = {
+  fontSize: '15px',
+  textAlign: 'center',
+  color : 'pink',
+  fontfamily: 'Roboto Slab',
+  margin : '10px 0px 0px 0p'
+};
+
+const p3style = {
+  fontSize: '15px',
+  textAlign: 'center',
+  color : 'pink',
+  fontfamily: 'Roboto Slab',
+  margin : '10px 0px 0px 0p'
+};
+
+const formstyle = {
+  padding: '12px 12px',
+  margin: '10px 510px 10px 510px',
+  border: '2px solid pink',
+  backgroundcolor: '#3CBC8D',
+  textAlign: 'center'
+};
+
 class SignIn extends React.Component {
    constructor(props) {
     super(props);
@@ -14,17 +48,25 @@ class SignIn extends React.Component {
 
   render() {
     return (
+      
       <div>
+        <div style = {p1Style}> 
+          <p></p>
+          Welcome to Nanabay.com, please login use your username and password! :)
+          <p></p>
+        </div>
         {
+
           this.state.error
           ? <p style={{ color : '#FF0000'}}>Cannot find matching username/password</p>
           : null
         }
-        <p>Username:</p>
-        <input onChange={ (e) => this.setState({ username: e.target.value }) }></input>
-        <p>Password:</p>
-        <input onChange={ (e) => this.setState({ password: e.target.value }) }></input>
-        <button onClick={() => {
+      
+        <p style = {p2style}>Username:</p>
+        <input style = {formstyle} onChange={ (e) => this.setState({ username: e.target.value }) }></input>
+        <p style = {p2style}>Password:</p>
+        <input style = {formstyle} onChange={ (e) => this.setState({ password: e.target.value }) }></input>
+        <button style = {formstyle} onClick={() => {
           this.setState({
             login_in_progress : true,
             error : false,
@@ -43,14 +85,14 @@ class SignIn extends React.Component {
         }}>
           Login
         </button>
-        <button onClick={() => {
+        <button style = {formstyle} onClick={() => {
           window.location.href = "/sign_up";
         }}>
           Sign Up
         </button>
         {
           this.state.login_in_progress
-          ? <p>Logging in...</p>
+          ? <p style = { p3style}> Logging in...</p>
           : null
         }
       </div>

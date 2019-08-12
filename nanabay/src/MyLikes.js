@@ -23,15 +23,16 @@ class MyLikes extends React.Component {
     }
   }
 
+
+
   render() {
     let items = [];
     for (let i = 0; i < this.state.likes.length; i++) {
       items.push(
         <a href={`/item/${this.state.likes[i].item_id}`}>
-          <div style={{ 'background-color' : '#EEEEEE' }}>
-            <img src={this.state.likes[i].pic_url} />
+          <div style={{ 'color' : "#4CAAF0", 'textAlign':"center", 'backgroundColor': "#E8F5F6" }}>
+            <img style = {{'borderRadius': "50%", 'width': "20%"}} src={this.state.likes[i].pic_url}/>
             <p>{this.state.likes[i].description}</p>
-            <p>Price: {this.state.likes[i].price}</p>
             <p>Category: {this.state.likes[i].category}</p>
             <p>Item ID: {this.state.likes[i].item_id}</p>
           </div>
@@ -42,12 +43,14 @@ class MyLikes extends React.Component {
     return (
       <div>
         <TopNavBar />
-        <h1>My Likes</h1>
+        <h1 style = {{ 'fontSize': "25px",'textAlign': "center", 'fontfamily': "Roboto Slab", 'margin':"8px",'color' : "#4CAAF0"}} >My Likes</h1>
+        <p> </p>
         {
           this.state.loading
-          ? <p>Loading...</p>
+          ? <p style = {{'fontSize': "15px", 'textAlign': "center", 'color': "pink"}} >Loading...</p>
           : items
         }
+
       </div>
     );
   }

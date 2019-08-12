@@ -52,7 +52,7 @@ class MyAccount extends React.Component {
 		        	let state = {};
 		      		state[editable_key] = false;
 		        	this.setState(state)
-		        	fetch(`http://localhost:4000/update_user?id=1&column=${key}&value=${this.state[key]}`)
+		        	fetch(`http://localhost:4000/update_user?id=${getUserFromCookie().user_id}&column=${key}&value=${this.state[key]}`)
 				      .then(console.log('update succeed'))
 		        }}>
 		          Save

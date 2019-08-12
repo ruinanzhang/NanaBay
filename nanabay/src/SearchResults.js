@@ -1,5 +1,6 @@
 import React from 'react';
 import TopNavBar from './components/top_nav_bar.react.js';
+import { getUserFromCookie } from './UserID';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -7,7 +8,20 @@ class SearchResults extends React.Component {
     this.state = {
       loading : true,
       results : [],
+      search_query : this.props.match.params.query,
+      search_history_loading : true,
+      search_history : [],
     };
+
+    fetch(`http://localhost:4000/search_history?user_id=${getUserFromCookie().id}`)
+      .then(response => response.json())
+      .then(history => {
+        console.log(history);
+        this.setState({
+          search_history : history,
+          search_history_loading : false,
+        });
+      });
 
     fetch(`http://localhost:4000/search?query=${this.props.match.params.query}`)
       .then(response => response.json())
@@ -21,6 +35,13 @@ class SearchResults extends React.Component {
   render() {
     if (this.state.loading) {
       return <p>Loading</p>;
+    }
+
+    let search_history = [];
+    for (var i = 0; i < this.state.search_history.length; i++) {
+      search_history.push(
+        <p>{this.state.search_history[i].filter_used}</p>
+      );
     }
 
     let items = [];
@@ -48,6 +69,26 @@ class SearchResults extends React.Component {
     return (
       <div>
         <TopNavBar />
+        <div>
+          <h2>Search</h2>
+          <input value={this.state.search_query} onChange={(e) => {
+            this.setState({ search_query : e.target.value });
+          }} />
+          <button onClick={() => {
+            fetch(`http://localhost:4000/add_search_history?user_id=${getUserFromCookie().id}&search_time=${new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ')}&filter_used=${this.state.search_query}`)
+              .then(window.location.href = `/search/${this.state.search_query}`)
+          }}>
+            Search
+          </button>
+        </div>
+        <div>
+          <h2>Search History</h2>
+          {
+            this.state.search_history_loading
+            ? <p>Loading...</p>
+            : search_history
+          }
+        </div>
         <h1>Search Result for "{this.props.match.params.query}"</h1>
         {items}
       </div>

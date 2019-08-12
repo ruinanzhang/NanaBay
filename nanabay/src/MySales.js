@@ -29,7 +29,7 @@ class MySales extends React.Component {
     for (let i = 0; i < this.state.sales.length; i++) {
       items.push(
         <a href={`/seller_item/${this.state.sales[i].item_id}`}>
-          <div style={{ 'background-color' : '#EEEEEE' }}>
+          <div style={{ 'color' : "#4CAAF0", 'textAlign':"center", 'backgroundColor': "#E8F5F6" }}>
             <p>{this.state.sales[i].description}</p>
 
             <p>
@@ -44,8 +44,7 @@ class MySales extends React.Component {
               )
             }
             </p>
-            <p>Buyer: {this.state.sales[i].buyer_name}</p>
-            <p>Latest bid: {this.state.sales[i].latest_bid}</p>
+            <p> Click here to see the top 3 bids! </p>
             <p>Item ID: {this.state.sales[i].item_id}</p>
           </div>
         </a>
@@ -55,7 +54,7 @@ class MySales extends React.Component {
     return (
       <div>
         <TopNavBar />
-        <h1>My Sales</h1>
+        <h1 style = {{ 'fontSize': "25px",'textAlign': "center", 'fontfamily': "Roboto Slab", 'margin':"8px",'color' : "#4CAAF0"}}>My Sales</h1>
         {
           this.state.loading
           ? <p>Loading...</p>

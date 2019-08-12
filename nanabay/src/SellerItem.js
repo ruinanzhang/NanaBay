@@ -22,7 +22,7 @@ class SellerItem extends React.Component {
     let history = [];
     for (let i = 0; i < this.state.items.length; i++) {
       history.push(
-        <div style={{ 'background-color' : '#EEEEEE' }}>
+        <div style={{ 'color' : "#4CAAF0", 'textAlign':"center", 'backgroundColor': "#E8F5F6" }}>
           <p>Buyer name: {this.state.items[i].buyer_name}</p>
           <p>Buyer reputation: {this.state.items[i].buyer_reputation}</p>
           <p>Bid amount: {this.state.items[i].bid_amount}</p>
@@ -37,8 +37,7 @@ class SellerItem extends React.Component {
           this.state.loading
           ? <p>Loading</p>
           : <div>
-              <h1>{this.state.items[0].description}</h1>
-              <h2>Bid History</h2>
+              <h1 style = {{ 'fontSize': "25px",'textAlign': "center", 'fontfamily': "Roboto Slab", 'margin':"8px",'color' : "#4CAAF0"}}>Top 3 bids are:</h1>
               {history}
             </div>
         }

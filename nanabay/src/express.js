@@ -35,7 +35,8 @@ app.get("/user", function(req, res) {
 });
 
 app.get("/update_user", function(req, res) {
-  connection.query(`UPDATE User SET ${req.query.column} = "${req.query.value}" WHERE user_id = ${req.query.id}`, function(
+  connection.query(`UPDATE User SET ${req.query.column} = "${req.query.value}" 
+    WHERE user_id = ${req.query.id}`, function(
     error,
     results,
     fields
@@ -61,7 +62,8 @@ app.get("/update_user", function(req, res) {
 
 app.get("/add_item", function(req, res) {
   connection.query(`INSERT INTO item
-VALUES (${req.query.item_id}, ${req.query.user_id}, '${req.query.category}', '${req.query.condition}', '${req.query.description}', '${req.query.pic_url}');`, function(
+VALUES (${req.query.item_id}, ${req.query.user_id}, '${req.query.category}', 
+'${req.query.condition}', '${req.query.description}', '${req.query.pic_url}');`, function(
     error,
     results,
     fields
@@ -69,7 +71,8 @@ VALUES (${req.query.item_id}, ${req.query.user_id}, '${req.query.category}', '${
     if (error) throw error;
   });
   connection.query(`INSERT INTO auction_seller
-VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.min_accept_price}', '${req.query.start_time}', '${req.query.end_time}');`, function(
+VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.min_accept_price}', 
+'${req.query.start_time}', '${req.query.end_time}');`, function(
     error,
     results,
     fields
@@ -77,7 +80,7 @@ VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.min_accept_p
     if (error) throw error;
   });
   connection.query(`INSERT INTO auction_res
-VALUES (${req.query.auction_id}, ${req.query.item_id}, null, null);`, function(
+VALUES (${req.query.auction_id}, ${req.query.item_id}, null, null, null);`, function(
     error,
     results,
     fields
@@ -91,7 +94,8 @@ VALUES (${req.query.auction_id}, ${req.query.item_id}, null, null);`, function(
 
 app.get("/add_bid", function(req, res) {
   connection.query(`INSERT INTO auction_buyer
-VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', '${req.query.bid}', '${req.query.bid_time}');`, function(
+VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', 
+'${req.query.bid}', '${req.query.bid_time}');`, function(
     error,
     results,
     fields
@@ -100,9 +104,11 @@ VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', 
   });
 
   console.log(`INSERT INTO auction_buyer
-VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', '${req.query.bid}', '${req.query.bid_time}');`);
+VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', 
+'${req.query.bid}', '${req.query.bid_time}');`);
 
-  connection.query(`UPDATE auction_res SET final_res = ${req.query.bid} WHERE auction_id = ${req.query.auction_id}`, function(
+  connection.query(`UPDATE auction_res SET final_res = ${req.query.bid} 
+    WHERE auction_id = ${req.query.auction_id}`, function(
     error,
     results,
     fields
@@ -115,9 +121,15 @@ VALUES (${req.query.auction_id}, ${req.query.item_id}, '${req.query.buyer_id}', 
 
 app.get("/add_user", function(req, res) {
   console.log(`INSERT INTO user
-VALUES (${req.query.user_id}, '${req.query.email}', '${req.query.username}', '${req.query.address}', ${req.query.phone}, '${req.query.register_date}', 'Y', '${req.query.last_active}','${req.query.paypal_account}',${req.query.seller_rep},${req.query.buyer_rep},'${req.query.password}');`);
+VALUES (${req.query.user_id}, '${req.query.email}', '${req.query.username}', 
+'${req.query.address}', ${req.query.phone}, '${req.query.register_date}', 'Y', 
+'${req.query.last_active}','${req.query.paypal_account}',${req.query.seller_rep},
+${req.query.buyer_rep},'${req.query.password}');`);
   connection.query(`INSERT INTO user
-VALUES (${req.query.user_id}, '${req.query.email}', '${req.query.username}', '${req.query.address}', ${req.query.phone}, '${req.query.register_date}', 'Y', '${req.query.last_active}','${req.query.paypal_account}',${req.query.seller_rep},${req.query.buyer_rep},'${req.query.password}');`, function(
+VALUES (${req.query.user_id}, '${req.query.email}', '${req.query.username}', 
+'${req.query.address}', ${req.query.phone}, '${req.query.register_date}', 'Y', 
+'${req.query.last_active}','${req.query.paypal_account}',${req.query.seller_rep},
+${req.query.buyer_rep},'${req.query.password}');`, function(
     error,
     results,
     fields
@@ -130,7 +142,9 @@ VALUES (${req.query.user_id}, '${req.query.email}', '${req.query.username}', '${
 //Likes will return 7 columns:
 
 app.get("/likes", function(req, res) {
-  connection.query(`SELECT item_id, description, category, item.condition, pic_url, auction_id, auction_start_time, aution_end_time, user_name as seller_name, seller_rep as seller_reputation
+  connection.query(`SELECT item_id, description, category, item.condition, pic_url, 
+    auction_id, auction_start_time, aution_end_time, user_name as seller_name, 
+    seller_rep as seller_reputation
 FROM ((Nanabay.Like join item using (item_id))join auction_seller using (item_id)) join user
 WHERE item.seller_id = user.user_id AND Like.user_id = ${req.query.id}`, function(
     error,
@@ -144,7 +158,11 @@ WHERE item.seller_id = user.user_id AND Like.user_id = ${req.query.id}`, functio
 
 // This will return the item I won in the aution 
 app.get("/orders", function(req, res) {
-  connection.query(` ${req.query.id}`, function(
+  connection.query( `SELECT item_id, description, category, item.condition, pic_url, 
+    auction_id, auction_start_time, aution_end_time, user_name as seller_name, 
+    seller_rep as seller_reputation
+FROM ((Nanabay.Like join item using (item_id))join auction_seller using (item_id)) join user
+WHERE item.seller_id = user.user_id AND Like.user_id = ${req.query.id}`, function(
     error,
     results,
     fields
@@ -158,7 +176,9 @@ app.get("/orders", function(req, res) {
 
 // this will return my bids
 app.get("/bids", function(req, res) {
-  connection.query(`SELECT description, auction_buyer.item_id, auction_id, bid, bit_time as my_bid_time, min_accept_price as min_accept_price, auction_start_time as start_time, aution_end_time as end_time, user_name as seller_name
+  connection.query(`SELECT description, auction_buyer.item_id, auction_id, bid,
+   bit_time as my_bid_time, min_accept_price as min_accept_price, 
+   auction_start_time as start_time, aution_end_time as end_time, user_name as seller_name
 FROM ((auction_buyer join item using (item_id))join auction_seller using (auction_id)) join user
 WHERE seller_id = user.user_id AND buyer_id =  ${req.query.id}`, function(
     error,
@@ -173,7 +193,8 @@ WHERE seller_id = user.user_id AND buyer_id =  ${req.query.id}`, function(
 
 // this will return my sell/ sold items
 app.get("/sales", function(req, res) {
-  connection.query(`SELECT item.item_id, description,final_res as lastest_bid, auction_start_time, aution_end_time
+  connection.query(`SELECT item.item_id, description,final_res as lastest_bid, 
+    auction_start_time, aution_end_time
 FROM (item join auction_seller using (item_id)) join auction_res using (auction_id) 
 WHERE item.seller_id =  ${req.query.id}`, function(
     error,
@@ -188,7 +209,10 @@ WHERE item.seller_id =  ${req.query.id}`, function(
 
 // this will return basic info about an item
 app.get("/item", function(req, res) {
-  connection.query(`SELECT pic_url, item_id, user_name as seller_name, description, category, item.condition, user.seller_rep, auction_seller.auction_id, min_accept_price as min_bid_accept_price, auction_start_time, aution_end_time as auction_end_time
+  connection.query(`SELECT pic_url, item_id, user_name as seller_name, 
+    description, category, item.condition, user.seller_rep, 
+    auction_seller.auction_id, min_accept_price as min_bid_accept_price, 
+    auction_start_time, aution_end_time as auction_end_time
 FROM (item natural join user) join auction_seller using (item_id)
 WHERE item.seller_id = user.user_id
 AND item_id = ${req.query.id}`, function(
@@ -205,7 +229,8 @@ AND item_id = ${req.query.id}`, function(
 //On this page, seller will see latest three bids from buyers
 app.get("/seller_item", function(req, res) {
   connection.query(` 
-   SELECT auction_id, auction_buyer.item_id, description, pic_url, user_name as buyer_name, bid as bid_amount,buyer_rep as buyer_reputation
+   SELECT auction_id, auction_buyer.item_id, description, pic_url, 
+   user_name as buyer_name, bid as bid_amount,buyer_rep as buyer_reputation
 FROM (auction_buyer join user) join item using (item_id)
 WHERE auction_buyer.buyer_id = user.user_id 
 AND seller_id =  ${req.query.id}
@@ -223,7 +248,48 @@ LIMIT 3`, function(
 // this will show the research results defined by the user 
 app.get("/search", function(req, res) {
   connection.query(`SELECT * FROM item
-WHERE description LIKE '%${req.query.query}%' OR category LIKE '%${req.query.query}%'` , function(
+WHERE description LIKE '%${req.query.query}%' OR category LIKE '%${req.query.query}%'` ,
+ function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+
+// this will show the research results defined by the user 
+app.get("/add_search_history", function(req, res) {
+  connection.query(`INSERT INTO searches VALUES (${req.query.user_id}, '${req.query.search_time}', '${req.query.filter_used}')`,
+ function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+// this will show the research results defined by the user 
+app.get("/search_history", function(req, res) {
+  connection.query(`SELECT * FROM searches
+WHERE user_id = ${req.query.user_id} ORDER BY search_time DESC LIMIT 10` ,
+ function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+app.get("/like", function(req, res) {
+  connection.query(`INSERT INTO Nanabay.like VALUES (${req.query.user_id}, ${req.query.item_id})`,
+ function(
     error,
     results,
     fields

@@ -29,11 +29,10 @@ class MyBids extends React.Component {
     for (let i = 0; i < this.state.bids.length; i++) {
       items.push(
         <a href={`/item/${this.state.bids[i].item_id}`}>
-          <div style={{ 'background-color' : '#EEEEEE' }}>
+          <div style= {{'fontfamily': "Roboto Slab", 'fontSize': "15px", 'textAlign': "center", 'color': "#4CAAF0", 'backgroundColor' : "#FCEAF2 "}}>
             <img src={this.state.bids[i].pic_url} />
             <p>{this.state.bids[i].description}</p>
             <p>Seller: {this.state.bids[i].seller_name}</p>
-            <p>{this.state.bids[i].description}</p>
             <p>Bid: {this.state.bids[i].bid}</p>
             <p>Minimum accept price: {this.state.bids[i].min_accept_price}</p>
             <p>Start time: {this.state.bids[i].start_time}</p>
@@ -49,7 +48,7 @@ class MyBids extends React.Component {
     return (
       <div>
         <TopNavBar />
-        <h1>My Bids</h1>
+        <h1 style = {{ 'fontSize': "25px",'textAlign': "center", 'fontfamily': "Roboto Slab", 'margin':"8px",'color' : "#4CAAF0"}}>My Bids</h1>
         {
           this.state.loading
           ? <p>Loading</p>
